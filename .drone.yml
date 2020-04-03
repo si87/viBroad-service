@@ -1,0 +1,63 @@
+---
+kind: pipeline
+name: "viBroad-Service Pull Request"
+
+steps:
+  - name: test-pull-request
+    image: gradle:jdk11
+    volumes:
+      - name: cache
+        path: /cache
+      - name: docker
+        path: /var/run/docker.sock
+    commands:
+      - export GRADLE_USER_HOME=/cache/.gradle
+      - gradle build
+    environment:
+      GRADLE_OPTS: -Dorg.gradle.daemon=false
+
+trigger:
+  event:
+    - pull_request
+  branch:
+    - master
+
+volumes:
+  - name: cache
+    host:
+      path: /var/lib/cache/gradle
+  - name: docker
+    host:
+      path: /var/run/docker.sock
+
+---
+kind: pipeline
+name: "viBroad Service"
+
+steps:
+- name: build-master
+  image: gradle:jdk11
+  volumes:
+    - name: cache
+      path: /cache
+    - name: docker
+      path: /var/run/docker.sock
+  commands:
+    - export GRADLE_USER_HOME=/cache/.gradle
+    - gradle build
+  environment:
+    GRADLE_OPTS: -Dorg.gradle.daemon=false
+
+trigger:
+  event:
+  - push
+  branch:
+  - master
+
+volumes:
+  - name: cache
+    host:
+      path: /var/lib/cache/gradle
+  - name: docker
+    host:
+      path: /var/run/docker.sock
