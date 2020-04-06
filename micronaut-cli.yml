@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: vibroad.service
+---
+testFramework: kotlintest
+sourceLanguage: kotlin
