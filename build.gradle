@@ -24,6 +24,7 @@ configurations {
 
 dependencies {
     compileOnly "org.graalvm.nativeimage:svm"
+    compile 'io.micronaut.graphql:micronaut-graphql:1.2.2'
     implementation enforcedPlatform("io.micronaut:micronaut-bom:$micronautVersion")
     implementation "io.micronaut:micronaut-http-client"
     implementation "io.micronaut:micronaut-http-server-netty"
@@ -43,6 +44,7 @@ dependencies {
     testImplementation "io.micronaut.test:micronaut-test-kotlintest"
     testImplementation "io.mockk:mockk:1.9.3"
     testImplementation "io.kotlintest:kotlintest-runner-junit5:3.3.2"
+    testImplementation "io.strikt:strikt-core:0.24.0"
 }
 
 test.classpath += configurations.developmentOnly
