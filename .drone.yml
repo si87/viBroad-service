@@ -44,9 +44,17 @@ steps:
         path: /var/run/docker.sock
     commands:
       - export GRADLE_USER_HOME=/cache/.gradle
-      - gradle build
+      - gradle build jacocoTestReport
     environment:
       GRADLE_OPTS: -Dorg.gradle.daemon=false
+
+  - name: codacy coverage
+    image: si87/codacy-coverage-reporter
+    settings:
+      CODACY_PROJECT_TOKEN:
+        from_secret: codacy_token
+      LANGUAGE: Java
+      FILE: build/reports/jacoco/test/jacocoTestReport.xml
 
 trigger:
   event:

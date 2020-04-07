@@ -4,6 +4,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "1.3.50"
     id "org.jetbrains.kotlin.kapt" version "1.3.50"
     id "org.jetbrains.kotlin.plugin.allopen" version "1.3.50"
+    id "jacoco"
 }
 
 
@@ -78,4 +79,15 @@ compileTestKotlin {
 	    jvmTarget = '1.8' 
 	    javaParameters = true 
 	}
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['vibroad/service/Application.class'])
+        }))
+    }
 }
