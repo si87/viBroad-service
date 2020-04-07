@@ -1,3 +1,6 @@
 micronaut:
   application:
     name: vibroad-service
+
+graphql:
+  graphiql.enabled: true
