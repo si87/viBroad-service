@@ -7,7 +7,10 @@
     "RestartPolicy": {
       "Condition": "on-failure",
       "MaxAttempts": 10
-    }
+    },
+    "networks" : [ {
+      "target" : "traefik"
+    } ]
   },
   "Mode": {
     "Replicated": {
