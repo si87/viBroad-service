@@ -64,6 +64,17 @@ steps:
       files:
         - build/reports/jacoco/test/jacocoTestReport.xml
 
+  - name: "build docker image"
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: registry_username
+      password:
+        from_secret: registry_password
+      auto_tag: true
+      repo: docker.pkg.github.com/si87/public/vibroad-service
+      registry: docker.pkg.github.com
+
 trigger:
   event:
     - push
