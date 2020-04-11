@@ -26,13 +26,15 @@
   "Labels": {
     "traefik.enable" : "true",
     "traefik.docker.network" : "traefik",
-    "traefik.http.routers.sop-service.rule" : "Host(`vibroad-latest.ttran.de`) && PathPrefix(`/api`)",
-    "traefik.http.routers.sop-service.entrypoints" : "websecure",
-    "traefik.http.routers.sop-service.tls" : "true",
-    "traefik.http.routers.sop-service.tls.certresolver" : "le",
-    "traefik.http.routers.sop-service-insecure.rule" : "Host(`vibroad-latest.ttran.de`) && PathPrefix(`/api`)",
-    "traefik.http.routers.sop-service-insecure.entrypoints" : "web",
-    "traefik.http.routers.sop-service-insecure.middlewares" : "redirect",
-    "traefik.http.services.sop-service.loadbalancer.server.port" : "8080"
+    "traefik.http.routers.vibroad-service.rule" : "Host(`dev.vibroad.de`) && (PathPrefix(`/api`) || PathPrefix(`/graphiql`) || PathPrefix(`/graphql`))",
+    "traefik.http.routers.vibroad-service.entrypoints" : "websecure",
+    "traefik.http.routers.vibroad-service.tls" : "true",
+    "traefik.http.routers.vibroad-service.tls.certresolver" : "le",
+    "traefik.http.routers.vibroad-service.middlewares" : "vibroad-service@docker",
+    "traefik.http.routers.vibroad-service-insecure.rule" : "Host(`dev.vibroad.de`) && (PathPrefix(`/api`) || PathPrefix(`/graphiql`) || PathPrefix(`/graphql`))",
+    "traefik.http.routers.vibroad-service-insecure.entrypoints" : "web",
+    "traefik.http.routers.vibroad-service-insecure.middlewares" : "redirect",
+    "traefik.http.middlewares.vibroad-service.stripprefix.prefixes": "/api",
+    "traefik.http.services.vibroad-service.loadbalancer.server.port" : "8080"
   }
 }
