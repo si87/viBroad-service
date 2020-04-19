@@ -17,8 +17,11 @@ class GraphQfFactory {
 
     @Bean
     @Singleton
-    fun graphQL(resourceResolver: ResourceResolver, helloDataFetcher: HelloDataFetcher): GraphQL {
-
+    fun graphQL(resourceResolver: ResourceResolver,
+                helloDataFetcher: HelloDataFetcher,
+                videosFetcher: VideosDataFetcher,
+                videoFetcher: VideoDataFetcher,
+                videoByNameFetcher: VideoByNameFetcher): GraphQL {
         val schemaParser = SchemaParser()
         val schemaGenerator = SchemaGenerator()
 
@@ -29,8 +32,12 @@ class GraphQfFactory {
 
         // Create the runtime wiring.
         val runtimeWiring = RuntimeWiring.newRuntimeWiring()
-                .type("Query") { typeWiring -> typeWiring
-                        .dataFetcher("hello", helloDataFetcher) }
+                .type("Query") { builder ->
+                    builder
+                            .dataFetcher("hello", helloDataFetcher)
+                            .dataFetcher("videos", videosFetcher)
+                            .dataFetcher("video", videoFetcher)
+                }
                 .build()
 
         // Create the executable schema.

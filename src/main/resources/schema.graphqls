@@ -1,3 +1,24 @@
 type Query {
     hello(name: String): String!
+    videos: [Video!]!
+    video(id: ID!): Video
+}
+
+type Mutation {
+    createVideo(name: String!, description: String!, tag: Tag!): Video!
+}
+
+type Video {
+    id: String!
+    name: String!
+    description: String!
+    tag: Tag!
+}
+
+enum Tag {
+    JAVASCRIPT
+    KOTLIN
+    JAVA
+    FRONTEND
+    BACKEND
 }

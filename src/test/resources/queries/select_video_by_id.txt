@@ -1,0 +1,7 @@
+{
+  video(id: "b670c9fe-ea3e-493f-b7f5-9186e640555e") {
+    id
+    name
+    description
+  }
+}
